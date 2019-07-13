@@ -1,10 +1,12 @@
 from django.shortcuts import render
-from django.views.generic import View
+from django.views.generic import ListView,DeleteView,DetailView
+from .models import Post
 
-class PostList(View):
-    def get(self,request):
-        print("where is my page")
-        return render(request,'posts/post_list.html')
+class PostList(ListView):
+    model = Post
 
-def index(request):
-    return render(request,'index.html')
+
+# to do:
+#AllPosts,CreatePostm,
+#UserPosts,SinglePost,
+#DeletePost

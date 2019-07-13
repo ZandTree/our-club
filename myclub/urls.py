@@ -18,12 +18,12 @@ from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from posts.views import index
+from .views import Home
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
-    path('',index,name='index'),
+    path('',Home.as_view(),name='index'),
     path('profile/',include('profiles.urls')),
     path('posts/',include('posts.urls')),
 

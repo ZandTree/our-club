@@ -15,7 +15,7 @@ def make_avatar(instance,file):
         head = head[:10]
     file_name = head + '.' + tail
     user_id = instance.user_id
-    return os.path.join('avatars',user_id,time,file_name)
+    return os.path.join('avatars',str(user_id),time,file_name)
 
 class Profile(models.Model):
     user = models.OneToOneField(User,related_name="profile",on_delete=models.CASCADE)
@@ -47,11 +47,11 @@ class Profile(models.Model):
     @property
     def get_avatar_path(self):
         if self.avatar:
-            return "/media/{}".format(self.avatr)
+            return "/media/{}".format(self.avatar)
         else:
-            return '/assets/img/avatar.png'
+            return '/static/img/icons/avatar.png/'
     # def get_absolute_url(self):
-    #     return reverse('profiles:profile',kwargs={'pk':self.user_id})        
+    #     return reverse('profiles:profile',kwargs={'pk':self.user_id})
 
 def create_profile(sender,instance,created,**kwargs):
     if created:
