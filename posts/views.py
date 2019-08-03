@@ -6,6 +6,7 @@ from django.http import Http404
 from django.contrib.auth.models import User
 from braces.views import PrefetchRelatedMixin,SetHeadlineMixin,SelectRelatedMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
 
 class AllPosts(ListView):
     model = Post
@@ -35,9 +36,11 @@ class UserPost(ListView):
         return  context
 
 
-class SinglePost(SelectRelatedMixin, DetailView):
-    model = Post
-    select_related = ("user", "community")
+class RestrictToUserObject:
+    def get_object(self):
+        """ get 'username' from url kwargs"""
+        name = self.kwargs.get('username',None)
+        return  get_object_or_404(Post,user__username__iexact = name )
 
     def get_queryset(self,**kwargs):
         """ limit queryset by only post of a particular user"""
@@ -45,12 +48,15 @@ class SinglePost(SelectRelatedMixin, DetailView):
         return queryset.filter(
             user__username__iexact=self.kwargs.get("username")
         )
-    def get_object(self):
-        """ get 'username' from url kwargs"""
-        name = self.kwargs.get('username',None)
-        return  get_object_or_404(Post,user__username__iexact = name )
+
+class SinglePost(RestrictToUserObject,SelectRelatedMixin, DetailView):
+    model = Post
+    select_related = ("user", "community")
 
 
+class DeletePost(RestrictToUserObject,LoginRequiredMixin,DeleteView):
+    model = Post
+    success_url = reverse_lazy('posts:all')
 
 class CreatePost(LoginRequiredMixin,CreateView):
     model = Post
