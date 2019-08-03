@@ -1,0 +1,12 @@
+{% extends "posts/layout.html" %}
+
+{% block post_content %}
+<h3>Are you sure you want to delete your profile?</h3>
+
+<form method="POST">
+	{% csrf_token %}
+	<input type="submit" value="Yes, delete it" class="btn btn-danger btn-large">
+	<a href="/" class="btn btn-simple btn-large btn-default">Nope, Back Home</a>
+</form>
+
+{% endblock %}

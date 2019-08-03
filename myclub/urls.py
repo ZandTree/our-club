@@ -26,6 +26,7 @@ urlpatterns = [
     path('',Home.as_view(),name='index'),
     path('profile/',include('profiles.urls')),
     path('posts/',include('posts.urls')),
+    #path('communities/',include('communities.urls')),
 
 ]
 

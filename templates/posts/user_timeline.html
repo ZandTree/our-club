@@ -1,0 +1,17 @@
+{# cooment #}{% extends "posts/layout.html" %}
+
+{% block pre_post_content %}
+<div class="col-md-4">
+	<h2>{{post_user}}</h2>
+	<h4><strong>@ {{post_user.username }}</strong></h4>
+</div>
+{% endblock %}
+
+{% block post_content %}
+<div class="col-md-8">
+	{% for post in post_list %}
+		{% include "posts/_post.html" %}
+	{% endfor %}
+</div>
+{% endblock %}
+{# comment #}

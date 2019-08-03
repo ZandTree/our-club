@@ -52,6 +52,8 @@ class Profile(models.Model):
             return '/static/img/icons/avatar.png/'
     # def get_absolute_url(self):
     #     return reverse('profiles:profile',kwargs={'pk':self.user_id})
+    def get_absolute_url(self):
+        return reverse('profiles:profile',kwargs={'pk':self.user_id})
 
 def create_profile(sender,instance,created,**kwargs):
     if created:

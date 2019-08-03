@@ -1,0 +1,20 @@
+{% extends 'base.html'%}
+{% block content %}
+    <h3>{{user.username|upper}}'s profile'</h3>
+
+    <div class="intro-self">
+        <p>Username: {{user.username}}</p>
+        <p>About my profile:</p>
+        <p>First Name: {{profile.first_name}}</p>
+        <p>Last Name: {{profile.last_name}}</p>
+        <p>Age: {{profile.age}}</p>
+        <p>location {{profile.location}}</p>
+    </div>
+    <div class="row">
+        <div class="col col-md-2">
+            <a href="{% url 'profiles:del-profile' profile.id %}" class='btn btn-danger'>Delete Profile</a>
+        </div>
+
+    </div>
+
+{% endblock %}
